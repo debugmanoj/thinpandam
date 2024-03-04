@@ -1,12 +1,25 @@
-import axios from "axios"
-const API_URL = 'https://65a61e5a74cf4207b4ef4c38.mockapi.io/'
-
+import axios from "axios";
+const API_URL = "https://thinpandam-be.onrender.com/";
 
 const AxiosService = axios.create({
-    baseURL: API_URL,
-    headers:{
-        "Content-Type":"application/json"
-    }
-})
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export default AxiosService
+AxiosService.interceptors.request.use(
+  (config) => {
+    // console.log(config)
+    const token = sessionStorage.getItem("token");
+    if (config.authenticate && token)
+      config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+export default AxiosService;
