@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../CustomerCommon/Navbar";
 import HomeItems from "./HomeItems";
+import { fetchFoods } from "../Customer redux/CartList";
 import carouselone from "../../images/carousel_image/one.jpg";
 import carouseltwo from "../../images/carousel_image/two.jpg";
+import carouselthree from "../../images/carousel_image/three.jpg"
 import { useDispatch, useSelector } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 function Home() {
   let dispatch = useDispatch();
-  let CartLists = useSelector((state) => state.Cart);
+  let {data,error,loading} = useSelector((state) => state.Cart);
+  
   let [cart, setCart] = useState(0);
   // let homeItems=CartList.Cart;
-  let homeItems = CartLists;
+  let homeItems = data;
   // let homeItems=
   // [
   // {
@@ -60,71 +63,93 @@ function Home() {
   // }
 
   // ]
+useEffect(()=>{
+  dispatch(fetchFoods())
+},[dispatch])
+  return <>
+<Navbar />
 
-  return (
-    <>
-      <Navbar />
+<header className=" owncolor py-5">
+  <div className="container px-4 px-lg-5 my-5">
+    <div className="text-center text-white">
+      <h1 className="display-4 fw-bolder">Just Select</h1>
+      <p className="lead fw-bold  text-white-90 mb-0">
+        We will deliver 😊
+      </p>
+    </div>
+  </div>
+</header>
 
-      <header className=" owncolor py-5">
-        <div className="container px-4 px-lg-5 my-5">
-          <div className="text-center text-white">
-            <h1 className="display-4 fw-bolder">Just Select</h1>
-            <p className="lead fw-bold  text-white-90 mb-0">
-              We will deliver 😊
-            </p>
-          </div>
-        </div>
-      </header>
+<section className="py-5">
+  <Carousel data-bs-theme="dark">
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src={carouselone}
+        alt="First slide"
+      />
+      <Carousel.Caption>
+        <h3>Arabic Fast Food</h3>
+        <p>Fast Food</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src={carouseltwo}
+        alt="Second slide"
+      />
+      <Carousel.Caption>
+        <h3>Delicious Burger</h3>
+        <p>Taste the Food</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src={carouselthree}
+        alt="Third slide"
+      />
+      <Carousel.Caption>
+        <h3>Super delicious Burger</h3>
+        <p>Taste the Food</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+    {/* Add more Carousel.Items for additional slides */}
+  </Carousel>
 
-      <section className="py-5">
-        <Carousel data-bs-theme="dark">
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={carouselone}
-              alt="First slide"
-            />
-            <Carousel.Caption>
-              <h3>Arabic Fast Food</h3>
-              <p>Fast Food</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={carouseltwo}
-              alt="Second slide"
-            />
-            <Carousel.Caption>
-              <h3>Delicious Burger</h3>
-              <p>Taste the Food</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          {/* Add more Carousel.Items for additional slides */}
-        </Carousel>
-
-        <div className="container px-4 px-lg-5 mt-5">
-          <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            {homeItems.map((val, i) => {
-              return (
-                <HomeItems cart={cart} setCart={setCart} values={val} key={i} />
-              );
-            })}
-          </div>
-        </div>
-      </section>
-      <footer className="py-5 bg-dark">
-        <div className="container">
-          <p className="m-0 text-center text-white">
-            Copyright &copy; Thin Pandam 2024
-          </p>
-        </div>
-      </footer>
+  <div className="container px-4 px-lg-5 mt-5">
+    <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      {homeItems.map((val, i) => {
+        return (
+          <HomeItems cart={cart} setCart={setCart} values={val} key={i} />
+        );
+      })}
+    </div>
+  </div>
+</section>
+<footer className="py-5 bg-dark">
+  <div className="container">
+    <p className="m-0 text-center text-white">
+      Copyright &copy; Thin Pandam 2024
+    </p>
+  </div>
+</footer>
     </>
-  );
 }
 
 export default Home;
+
+// mukkiyam da
+
+
+
+
+
+
+
+
+
 
 {
   /* <div className="col mb-5">

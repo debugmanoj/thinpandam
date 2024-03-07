@@ -5,10 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 function Navbar() {
   let { id } = useParams();
   let navigate = useNavigate();
-  let CustomerList = useSelector((state) => state.Cart);
+  let {data,error,loading} = useSelector((state) => state.Cart);
   let total = 0;
   {
-    CustomerList.map((val, i) => {
+    data.map((val, i) => {
       if (val.isClicked) {
         total = total + 1;
       }

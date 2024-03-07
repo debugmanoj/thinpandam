@@ -34657,3 +34657,6 @@ main #left_side img.mobile {
   justify-content: space-evenly;
   align-items: center;
 }
+.tableImage{
+  width: 100%;
+}

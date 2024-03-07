@@ -26,6 +26,10 @@ import NotAllowed from "../NotAllowed";
 import DeliveryProtectedRoute from "./DeliveryProtectedRoute";
 import NotAUser from "./NotAUser";
 import HomePage from "../HomePage";
+import AdminSignIn from "../admin/AdminSignIn";
+import AdminHome from "../admin/AdminHome";
+import AdminFoods from "../admin/AdminFoods";
+import AdminAddFood from "../admin/AdminAddFood";
 const router = [
   {
     path: "/signIn",
@@ -232,6 +236,27 @@ const router = [
     path: "/NotUser",
     exact: true,
     element: <NotAUser />,
+  },
+  {
+    path: "/adminsignIn",
+    exact: true,
+    element: <AdminSignIn />,
+  },
+  {
+    path: "/adminHome/:id",
+    exact: true,
+    element: <AdminHome />,
+    children:
+    [
+      {
+        path:"Foods",
+        element:<AdminFoods/>
+      },
+      {
+        path:"AddFoods",
+        element:<AdminAddFood/>
+      }
+    ]
   },
 
   {

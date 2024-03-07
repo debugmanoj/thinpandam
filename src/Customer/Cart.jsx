@@ -8,18 +8,18 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 function Cart() {
   let { id } = useParams();
   let navigate = useNavigate();
-  let CartLists = useSelector((state) => state.Cart);
+  let {data,loading,error} = useSelector((state) => state.Cart);
   // Getting total price from the Cart
 
   let totalPrice = 0;
-  CartLists.map((val) => {
+  data.map((val) => {
     if (val.isClicked) {
       totalPrice += val.price;
     }
   });
 
   let handleFoodList = async () => {
-    let addFoodToCustomer = CartLists.filter((val) => val.isClicked).map(
+    let addFoodToCustomer = data.filter((val) => val.isClicked).map(
       (val, i) => ({
         id: i,
         foodTitle: val.foodTitle,
@@ -51,7 +51,7 @@ function Cart() {
       <h4 className="text-center text-black">Your order</h4>
       <div className="container mt-2">
         <div className="bill flex-column container d-flex justify-content-center align-items-center">
-          {CartLists.map((val, i) => {
+          {data.map((val, i) => {
             if (val.isClicked) {
               return <CartItems order={val} key={i} />;
             }

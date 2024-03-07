@@ -29,6 +29,10 @@ const customerapi = {
     path: "/user/updateProfile",
     authenticate: true,
   },
+  getFoodList:{
+    path:"/food/getAllfoods",
+    authenticate: true,
+  },
 
   //Razor pay
 
